@@ -5,7 +5,7 @@
 #   Spoon 11.5.1 requires JDK 17+; this family runs on JDK 11
 #
 # It ships anyway, exiting 3, so the metrics that name it are visibly accounted for
-# rather than silently missing. See tools/spoon/README.md.
+# rather than silently missing. See Tool Triggering (Synthetic Data)/spoon/README.md.
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 command -v java >/dev/null 2>&1 || exit 4
