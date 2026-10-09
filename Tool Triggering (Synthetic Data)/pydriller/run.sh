@@ -4,7 +4,7 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 command -v python3 >/dev/null 2>&1 || exit 4
-mkdir -p tools/pydriller/out
+mkdir -p "Tool Triggering (Synthetic Data)/pydriller/out"
 
 # source root differs between the monolith and multi-module layouts
 SRC=$(ls -d */src/main/java 2>/dev/null | head -1)
@@ -21,7 +21,7 @@ case "pydriller" in
   diff-cover) [ -n "${JACOCO_XML:-}" ] || exit 3 ;;
 esac
 
-python3 tools/pydriller/churn.py . tools/pydriller/out/churn.json
+python3 "Tool Triggering (Synthetic Data)/pydriller/churn.py" . "Tool Triggering (Synthetic Data)/pydriller/out/churn.json"
 rc=$?
 # propagate the tool's own skipped/not-installed codes instead of flattening them to 1
 case $rc in
