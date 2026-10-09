@@ -11,8 +11,10 @@
   <name>Testable Java corpus JV-121</name>
 
   <properties>
-    <maven.compiler.source>9</maven.compiler.source>
-    <maven.compiler.target>9</maven.compiler.target>
+    <!-- release, not source/target: it pins the API surface to Java 9 as well as the
+         bytecode level, which is how this family is verified (javac with release 9). -->
+    <maven.compiler.release>9</maven.compiler.release>
+    <maven.compiler.testRelease>9</maven.compiler.testRelease>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -98,7 +100,7 @@
         <artifactId>maven-pmd-plugin</artifactId>
         <version>3.26.0</version>
         <configuration>
-          <rulesets><ruleset>${project.basedir}/tools/pmd/ruleset.xml</ruleset></rulesets>
+          <rulesets><ruleset>${project.basedir}/Tool Triggering (Synthetic Data)/pmd/ruleset.xml</ruleset></rulesets>
           <targetJdk>9</targetJdk>
         </configuration>
         <dependencies>
@@ -110,7 +112,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.6.0</version>
-        <configuration><configLocation>${project.basedir}/tools/checkstyle/checkstyle.xml</configLocation></configuration>
+        <configuration><configLocation>${project.basedir}/Tool Triggering (Synthetic Data)/checkstyle/checkstyle.xml</configLocation></configuration>
         <dependencies>
           <dependency><groupId>com.puppycrawl.tools</groupId><artifactId>checkstyle</artifactId><version>10.26.1</version></dependency>
         </dependencies>
@@ -120,7 +122,7 @@
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>4.8.6.6</version>
         <configuration>
-          <excludeFilterFile>${project.basedir}/tools/spotbugs/exclude.xml</excludeFilterFile>
+          <excludeFilterFile>${project.basedir}/Tool Triggering (Synthetic Data)/spotbugs/exclude.xml</excludeFilterFile>
           <plugins>
             <plugin><groupId>com.h3xstream.findsecbugs</groupId><artifactId>findsecbugs-plugin</artifactId><version>1.14.0</version></plugin>
           </plugins>
