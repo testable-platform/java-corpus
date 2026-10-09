@@ -29,7 +29,7 @@
   "rejectedLocks": [
     {
       "api": "String.formatted / stripIndent / translateEscapes",
-      "reason": "not monotonic - present at --release 13, absent at 14, present again from 15. Shipped in JDK 13 as deprecated-for-removal alongside preview text blocks, removed in JDK 14, re-added final in JDK 15. A cumulative version ladder cannot use a lock that disappears one release later."
+      "reason": "not monotonic - present at --release 13, a preview API (hard error with preview off) at 14, final from 15. Shipped in JDK 13 as deprecated-for-removal alongside preview text blocks, reclassified as preview APIs in JDK 14, final in JDK 15. A cumulative version ladder cannot use a lock that stops compiling one release later."
     }
   ],
   "inheritedLocks": {
