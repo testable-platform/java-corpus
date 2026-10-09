@@ -5,7 +5,7 @@
 #   not a tool - the sheet names no package, version or vendor
 #
 # It ships anyway, exiting 3, so the metrics that name it are visibly accounted for
-# rather than silently missing. See tools/custom-def-use/README.md.
+# rather than silently missing. See Tool Triggering (Synthetic Data)/custom-def-use/README.md.
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 exit 3
