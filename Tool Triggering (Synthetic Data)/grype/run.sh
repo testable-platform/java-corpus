@@ -4,7 +4,7 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 command -v grype >/dev/null 2>&1 || exit 4
-mkdir -p tools/grype/out
+mkdir -p "Tool Triggering (Synthetic Data)/grype/out"
 
 # source root differs between the monolith and multi-module layouts
 SRC=$(ls -d */src/main/java 2>/dev/null | head -1)
@@ -21,7 +21,7 @@ case "grype" in
   diff-cover) [ -n "${JACOCO_XML:-}" ] || exit 3 ;;
 esac
 
-grype dir:. --output json --file tools/grype/out/grype.json
+grype dir:. --output json --file "Tool Triggering (Synthetic Data)/grype/out/grype.json"
 rc=$?
 # propagate the tool's own skipped/not-installed codes instead of flattening them to 1
 case $rc in
