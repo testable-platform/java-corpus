@@ -4,7 +4,7 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 command -v java >/dev/null 2>&1 || exit 4
-mkdir -p tools/ck/out
+mkdir -p "Tool Triggering (Synthetic Data)/ck/out"
 
 # source root differs between the monolith and multi-module layouts
 SRC=$(ls -d */src/main/java 2>/dev/null | head -1)
@@ -21,7 +21,7 @@ case "ck" in
   diff-cover) [ -n "${JACOCO_XML:-}" ] || exit 3 ;;
 esac
 
-java -jar "$CK_JAR" "$SRC" true 0 false tools/ck/out/
+java -jar "$CK_JAR" "$SRC" true 0 false "Tool Triggering (Synthetic Data)/ck/out/"
 rc=$?
 # propagate the tool's own skipped/not-installed codes instead of flattening them to 1
 case $rc in
