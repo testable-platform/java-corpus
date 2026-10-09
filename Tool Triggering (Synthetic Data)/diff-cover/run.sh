@@ -4,7 +4,7 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 command -v diff-cover >/dev/null 2>&1 || exit 4
-mkdir -p tools/diff-cover/out
+mkdir -p "Tool Triggering (Synthetic Data)/diff-cover/out"
 
 # source root differs between the monolith and multi-module layouts
 SRC=$(ls -d */src/main/java 2>/dev/null | head -1)
@@ -21,7 +21,7 @@ case "diff-cover" in
   diff-cover) [ -n "${JACOCO_XML:-}" ] || exit 3 ;;
 esac
 
-diff-cover "$JACOCO_XML" --compare-branch="${BASE_BRANCH:-main}" --html-report tools/diff-cover/out/report.html
+diff-cover "$JACOCO_XML" --compare-branch="${BASE_BRANCH:-main}" --html-report "Tool Triggering (Synthetic Data)/diff-cover/out/report.html"
 rc=$?
 # propagate the tool's own skipped/not-installed codes instead of flattening them to 1
 case $rc in
