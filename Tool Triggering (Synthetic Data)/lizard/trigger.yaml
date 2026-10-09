@@ -5,7 +5,7 @@ kind: standalone
 java_version: "18"
 host_jdk: "21"
 build_system: "Maven"
-command: ./tools/lizard/run.sh
+command: "./Tool Triggering (Synthetic Data)/lizard/run.sh"
 exit_codes:
   0: ran
   1: failed
