@@ -4,7 +4,7 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 command -v java >/dev/null 2>&1 || exit 4
-mkdir -p tools/spoon/out
+mkdir -p "Tool Triggering (Synthetic Data)/spoon/out"
 
 # source root differs between the monolith and multi-module layouts
 SRC=$(ls -d */src/main/java 2>/dev/null | head -1)
@@ -18,13 +18,13 @@ CK_JAR="${CK_JAR:-tools/ck/ck.jar}"
 # a tool whose artefact is absent is not-installed (4); a missing input is skipped (3)
 case "spoon" in
   ck)         [ -f "$CK_JAR" ] || exit 4 ;;
-  spoon)      [ -f tools/spoon/spoon.jar ] || exit 4 ;;
-  asm-defuse) [ -f tools/asm-defuse/asm-defuse.jar ] || exit 4 ;;
-  ba-dua)     [ -f tools/ba-dua/ba-dua-cli.jar ] || exit 4 ;;
+  spoon)      [ -f "Tool Triggering (Synthetic Data)/spoon/spoon.jar" ] || exit 4 ;;
+  asm-defuse) [ -f "Tool Triggering (Synthetic Data)/asm-defuse/asm-defuse.jar" ] || exit 4 ;;
+  ba-dua)     [ -f "Tool Triggering (Synthetic Data)/ba-dua/ba-dua-cli.jar" ] || exit 4 ;;
   diff-cover) [ -n "${JACOCO_XML:-}" ] || exit 3 ;;
 esac
 
-java -cp "tools/spoon/spoon.jar" spoon.Launcher -i "$SRC" -o tools/spoon/out/ --compliance 16
+java -cp "Tool Triggering (Synthetic Data)/spoon/spoon.jar" spoon.Launcher -i "$SRC" -o "Tool Triggering (Synthetic Data)/spoon/out/" --compliance 16
 rc=$?
 # propagate the tool's own skipped/not-installed codes instead of flattening them to 1
 case $rc in
