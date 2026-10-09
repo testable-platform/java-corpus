@@ -1,6 +1,6 @@
 # Java-Tools-Invalid
 
-A folder of 16 tool-named projects, mirroring the folder names and
+A folder of 20 tool-named projects, mirroring the folder names and
 boundary-JDK structure of the sibling **Java-Tools-Clean** corpus. This
 corpus is the deliberate inverse: each folder is a small **synthetic**
 project, engineered so the tool it is named after finds something
@@ -16,9 +16,10 @@ invoking is the fact" applies here exactly as it does in Clean.
 
 ## Boundary-version structure -- identical to Clean
 
-14 of the 16 tools are exploded into five per-tool subfolders, one per
-boundary JDK family -- **2 earliest + 1 middle + 2 latest**, the same
-shape as every sibling corpus:
+17 of the 20 tools are exploded into per-tool subfolders, one per JDK
+family (`java8` to `java25`, 18 each). The five boundary families below --
+**2 earliest + 1 middle + 2 latest**, the same shape as every sibling corpus --
+are the ones the real tools were run on:
 
 | Family | Role | How it's verified |
 | --- | --- | --- |
@@ -36,11 +37,11 @@ source uses no version-gated Java syntax, so the same `.java` files
 compile unchanged at every one of the five targets -- only the compiler
 invocation differs per family.
 
-The remaining 2 tools -- **diff-cover, pydriller** -- stay single-version
+The remaining 3 tools -- **diff-cover, git-churn, pydriller** -- stay single-version
 and unversioned, like their counterparts in Clean: diff-cover and
 pydriller mine git history and a coverage report, not JDK compatibility.
 
-## Measured results (14 versionable tools x 5 families = 70 cells)
+## Measured results (the 14 original versionable tools x the 5 boundary families = 70 cells)
 
 | Tool | java8 | java9 | java16 | java24 | java25 |
 | --- | --- | --- | --- | --- | --- |
@@ -64,7 +65,7 @@ of Clean's own 26 CLEAN / 4 FINDING / 40 NOT_INSTALLED tally -- same 70
 cells, same split (26+4=30), opposite verdict on every cell that was
 genuinely content-dependent in Clean.
 
-Plus the 2 unversioned tools, both FINDING:
+Plus the 2 original unversioned tools, both FINDING (git-churn is in the section on added tools below):
 
 | Tool | Result | Command |
 | --- | --- | --- |
@@ -115,6 +116,23 @@ Three distinct failure/finding modes split across five families for
 each of these two tools, all confirmed by direct invocation -- mirrored
 exactly, cell-for-cell, from Clean's own two genuine findings.
 
+## Added later: 13 more JDK families and 4 more tools
+
+Two gaps were closed after the original measurement above.
+
+**Every tool now has a folder for every JDK family.** The 14 versioned tools above (and the three new versioned tools below) carry `java8` to `java25`, 18 folders each, so a branch's own family is always present (Java 11 -> `java11`, Java 17 -> `java17`, and so on). The 13 added families are `java10` to `java15` and `java17` to `java23`. Their source is the same file, byte for byte, as `java8` (identical git blob hashes -- nothing is version-gated); each was compiled with `javac --release N` on a JDK 25 host and its unit tests run. **The real tools were not re-run on these 13 families**, so they have no row in the measured tables above, and a tool that cannot run a family still has the folder.
+
+**Four tools that had no folder here now do**: `custom-def-use`, `git-churn`, `nullaway` and `sonar`.
+
+| Tool | Versioned | Result | What was run |
+| --- | --- | --- | --- |
+| custom-def-use | 18 families | FINDING on all 18 (orphan definitions java8..java23; ASM ceiling on java24..java25) | the sibling ASM-DefUse library on each family's class files (see its README) |
+| git-churn | no (git history) | FINDING | `git log --numstat` over a real 8-commit history |
+| nullaway | 18 families | NOT INSTALLED | Error Prone plugin; Maven Central is blocked here |
+| sonar | 18 families | NOT INSTALLED | needs a SonarQube server and scanner, neither reachable here |
+
+For `nullaway` and `sonar` the README of each folder lists the defects that were planted (Invalid) or avoided (Clean) from reading the source; none of that was measured by the tools themselves.
+
 ## Rules every folder obeys -- same hygiene as Clean, inverted only on purpose
 
 - No suppression anywhere -- no `@SuppressWarnings`, no checkstyle
@@ -126,7 +144,8 @@ exactly, cell-for-cell, from Clean's own two genuine findings.
   representative family per tool): only CPD's own deliberately planted
   self-clone remains; no cross-tool collisions.
 - Real git history for diff-cover (2 commits on `main`/`feature`, plus
-  a `.gitignore`) and pydriller (9 commits: 1 untagged init + 8 tagged).
+  a `.gitignore`), pydriller (9 commits: 1 untagged init + 8 tagged) and
+  git-churn (8 commits, described in the section on added tools).
 - Same domain source, unmodified, across all five families of a given
   tool -- only the compiling toolchain (host JDK + `--release` flag)
   differs per family.
@@ -142,12 +161,12 @@ exactly, cell-for-cell, from Clean's own two genuine findings.
 ```text
 <Tool Name>/
   README.md              what wrong means for this tool, the per-family results
-  java8/ java9/ java16/  each holds its own src/main + src/test copy,
-  java24/ java25/        compiled at that family's own bytecode target
+  java8/ ... java25/     one folder per JDK family (18), each with its own src/main + src/test copy;
+                         the original five (8, 9, 16, 24, 25) were run live, the other 13 are compile-checked only
   tools/                 shared driver, only where the tool needs one (JaCoCo, ASM-DefUse) -- compiled once, family-independent
   vendor/                only where a dependency was built from source (ASM-DefUse) -- the identical jar Clean's own folder built, shared, family-independent
   security-rules.yml     FindSecBugs's local semgrep ruleset -- byte-for-byte the same as Clean's, shared, family-independent
-  .git/                  only where the tool mines real history (diff-cover, pydriller) -- unversioned, untouched
+  .git/                  only where the tool mines real history (diff-cover, git-churn, pydriller) -- unversioned, untouched
 _generator/               family_table.py, generate.py, verify_live.py
 ```
 
@@ -162,6 +181,8 @@ python3 _generator/verify_live.py    # real compile + real tool run for every li
 openjdk-8-jdk openjdk-11-jdk openjdk-17-jdk openjdk-25-jdk`), plus the
 same `checkstyle`/`lizard`/`jscpd`/`semgrep`/`pydriller`/`diff-cover`
 apt/pip/npm packages used by Clean.
+
+The generator scripts above cover only the original 16 tools and the five boundary families. The 13 added families, the 4 added tools and the removal of the stale flat `src/` copies and the compiled `.pyc` were done afterwards by the Java corpus fix and are not reproduced by `_generator/`.
 
 ## Tool versions used for the measurement
 
