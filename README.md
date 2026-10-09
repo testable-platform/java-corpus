@@ -103,15 +103,16 @@ here**, because they do not survive the next release. Measured with `javac 17`/`
 
 | `--release` | 12 | 13 | 14 | 15 | 17 | 21 | 25 |
 |---|---|---|---|---|---|---|---|
-| `String.formatted` | absent | **present** | **absent** | present | present | present | present |
+| `String.formatted` | absent | **present** (warning) | **preview API: error** | present | present | present | present |
 
 They shipped in JDK 13 alongside preview text blocks, carried
-`@Deprecated(forRemoval=true)`, were **removed in JDK 14**, and returned final in JDK 15.
+`@Deprecated(forRemoval=true)`, were **reclassified as preview APIs in JDK 14**, and became final in
+JDK 15. At `--release 14` javac rejects them (*"is a preview API and is disabled by default"*).
 At `--release 13` javac accepts them but warns *"has been deprecated and marked for
 removal"*.
 
 This corpus's ladder is cumulative — each family keeps the one below it and adds to it — so
-a lock that vanishes one release later would break that property and make any future java14
+a lock that stops compiling one release later would break that property and make any future java14
 family inconsistent with java13. The three buffer and filesystem APIs above are monotonic
 from 13 through 25 and were chosen for that reason. **A version lock has to be checked
 forward as well as backward**, and this is the first case in the corpus where an API that
@@ -160,15 +161,22 @@ placeholder -- see the Supported tools table above -- so it was never a
 candidate for this folder either.)
 
 ### `Tool Clean (Synthetic Data)/`
-Most tools here carry 5 generated fixture packages, one per representative
-JDK family (8, 9, 16, 24, 25), engineered to be clean so the tool should
-report zero findings: the **Tool Clean (100% pass)** condition.
+Most tools here carry 18 generated fixture packages, one per JDK family
+(`java8` to `java25`), engineered to be clean so the tool should report
+zero findings: the **Tool Clean (100% pass)** condition. This branch is
+Java 13, so its own family is the `java13` folder inside each tool. Every
+tool has a folder for every family, including families it cannot run
+(those report not-installed or skipped, they are not left out). The real
+tools were run on five of the families (8, 9, 16, 24, 25); the other
+thirteen hold the same source, compiled and unit-tested at their own
+`--release` only. The tools are `custom-def-use`, `git-churn`, `nullaway`
+and `sonar` as well as the sixteen already there.
 
 ### `Tool Invalid (Synthetic Data)/`
-Same shape as Clean -- the same 5-JDK-family fixtures -- but engineered so
+Same shape as Clean -- the same 18 JDK-family folders -- but engineered so
 every fixture makes the tool flag or fail rather than pass: the
-**Tool Invalid** condition. `diff-cover` and `pydriller` each carry one real
-git repository's worth of history in both Clean and Invalid rather than 5
+**Tool Invalid** condition. `diff-cover`, `git-churn` and `pydriller` each carry one
+real git repository's worth of history in both Clean and Invalid rather than 18
 per-version copies, restored from `_git-bundles/` via `restore-git.ps1`
 rather than kept as a live `.git` folder, so a plain file copy never
 silently drops their content.
