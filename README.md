@@ -116,15 +116,22 @@ placeholder -- see the Supported tools table above -- so it was never a
 candidate for this folder either.)
 
 ### `Tool Clean (Synthetic Data)/`
-Most tools here carry 5 generated fixture packages, one per representative
-JDK family (8, 9, 16, 24, 25), engineered to be clean so the tool should
-report zero findings: the **Tool Clean (100% pass)** condition.
+Most tools here carry 18 generated fixture packages, one per JDK family
+(`java8` to `java25`), engineered to be clean so the tool should report
+zero findings: the **Tool Clean (100% pass)** condition. This branch is
+Java 25, so its own family is the `java25` folder inside each tool. Every
+tool has a folder for every family, including families it cannot run
+(those report not-installed or skipped, they are not left out). The real
+tools were run on five of the families (8, 9, 16, 24, 25); the other
+thirteen hold the same source, compiled and unit-tested at their own
+`--release` only. The tools are `custom-def-use`, `git-churn`, `nullaway`
+and `sonar` as well as the sixteen already there.
 
 ### `Tool Invalid (Synthetic Data)/`
-Same shape as Clean -- the same 5-JDK-family fixtures -- but engineered so
+Same shape as Clean -- the same 18 JDK-family folders -- but engineered so
 every fixture makes the tool flag or fail rather than pass: the
-**Tool Invalid** condition. `diff-cover` and `pydriller` each carry one real
-git repository's worth of history in both Clean and Invalid rather than 5
+**Tool Invalid** condition. `diff-cover`, `git-churn` and `pydriller` each carry one
+real git repository's worth of history in both Clean and Invalid rather than 18
 per-version copies, restored from `_git-bundles/` via `restore-git.ps1`
 rather than kept as a live `.git` folder, so a plain file copy never
 silently drops their content.
