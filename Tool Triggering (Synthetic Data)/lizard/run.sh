@@ -4,7 +4,7 @@
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 command -v lizard >/dev/null 2>&1 || exit 4
-mkdir -p tools/lizard/out
+mkdir -p "Tool Triggering (Synthetic Data)/lizard/out"
 
 # source root differs between the monolith and multi-module layouts
 SRC=$(ls -d */src/main/java 2>/dev/null | head -1)
@@ -21,7 +21,7 @@ case "lizard" in
   diff-cover) [ -n "${JACOCO_XML:-}" ] || exit 3 ;;
 esac
 
-lizard --languages java --xml "$SRC" > tools/lizard/out/lizard.xml
+lizard --languages java --xml "$SRC" > "Tool Triggering (Synthetic Data)/lizard/out/lizard.xml"
 rc=$?
 # propagate the tool's own skipped/not-installed codes instead of flattening them to 1
 case $rc in
