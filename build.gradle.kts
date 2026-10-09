@@ -47,18 +47,18 @@ tasks.test {
 
 checkstyle {
     toolVersion = "14.1.0"
-    configFile = file("tools/checkstyle/checkstyle.xml")
+    configFile = file("Tool Triggering (Synthetic Data)/checkstyle/checkstyle.xml")
 }
 
 pmd {
     toolVersion = "7.26.0"
-    ruleSetFiles = files("tools/pmd/ruleset.xml")
+    ruleSetFiles = files("Tool Triggering (Synthetic Data)/pmd/ruleset.xml")
     ruleSets = emptyList()
 }
 
 spotbugs {
     toolVersion.set("4.10.3")
-    excludeFilter.set(file("tools/spotbugs/exclude.xml"))
+    excludeFilter.set(file("Tool Triggering (Synthetic Data)/spotbugs/exclude.xml"))
 }
 
 tasks.jar {
