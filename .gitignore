@@ -6,3 +6,6 @@ lib/
 *.class
 .idea/
 *.iml
+
+# runner output (the run.sh scripts write into <tool>/out/)
+Tool Triggering (Synthetic Data)/*/out/
