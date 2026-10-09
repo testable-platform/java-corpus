@@ -5,7 +5,7 @@ kind: standalone
 java_version: "24"
 host_jdk: "25"
 build_system: "Gradle / Kotlin DSL"
-command: ./tools/grype/run.sh
+command: "./Tool Triggering (Synthetic Data)/grype/run.sh"
 exit_codes:
   0: ran
   1: failed
