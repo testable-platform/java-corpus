@@ -24,8 +24,14 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_1_10
+    targetCompatibility = JavaVersion.VERSION_1_10
+}
+
+// See the Kotlin DSL branches: --release pins the API surface, source/target only the
+// bytecode level. Both are declared so the build file matches how the family is verified.
+tasks.withType(JavaCompile).configureEach {
+    options.release.set(10)
 }
 
 jacoco {
@@ -39,18 +45,18 @@ test {
 
 checkstyle {
     toolVersion = '10.26.1'
-    configFile = file('tools/checkstyle/checkstyle.xml')
+    configFile = file('Tool Triggering (Synthetic Data)/checkstyle/checkstyle.xml')
 }
 
 pmd {
     toolVersion = '7.26.0'
-    ruleSetFiles = files('tools/pmd/ruleset.xml')
+    ruleSetFiles = files('Tool Triggering (Synthetic Data)/pmd/ruleset.xml')
     ruleSets = []
 }
 
 spotbugs {
     toolVersion = '4.10.3'
-    excludeFilter = file('tools/spotbugs/exclude.xml')
+    excludeFilter = file('Tool Triggering (Synthetic Data)/spotbugs/exclude.xml')
 }
 
 shadowJar {
