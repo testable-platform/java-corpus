@@ -5,7 +5,7 @@ kind: plugin
 java_version: "18"
 host_jdk: "21"
 build_system: "Gradle / Groovy DSL"
-command: ./tools/pit/run.sh
+command: "./Tool Triggering (Synthetic Data)/pit/run.sh"
 exit_codes:
   0: ran
   1: failed
