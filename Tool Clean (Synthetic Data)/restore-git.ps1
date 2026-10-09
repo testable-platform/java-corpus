@@ -1,6 +1,6 @@
-﻿# Restores the live .git folder for diff-cover and pydriller from _git-bundles/.
+﻿# Restores the live .git folder for diff-cover, git-churn and pydriller from _git-bundles/.
 # Run from inside "Tool Clean (Synthetic Data)" or "Tool Invalid (Synthetic Data)".
-param([string[]]$Tools = @("diff-cover", "pydriller"))
+param([string[]]$Tools = @("diff-cover", "git-churn", "pydriller"))
 foreach ($tool in $Tools) {
     $bundle = Join-Path "_git-bundles" "$tool-gitdata.tar.gz"
     if (Test-Path $bundle) {
