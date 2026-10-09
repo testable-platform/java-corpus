@@ -25,8 +25,17 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+// --release is what pins the *API* surface to Java 17, not just the bytecode level.
+// On this family the host JDK is Java 17 itself, so source/target and release agree here;
+// release is declared anyway so a build on a newer JDK cannot compile against newer APIs
+// and still emit Java 17 class files. This family is verified with `javac --release
+// 17`, so the build files declare the same thing.
+tasks.withType<JavaCompile>().configureEach {
+    options.release.set(17)
 }
 
 jacoco {
@@ -40,16 +49,16 @@ tasks.test {
 
 checkstyle {
     toolVersion = "12.3.1"
-    configFile = file("tools/checkstyle/checkstyle.xml")
+    configFile = file("Tool Triggering (Synthetic Data)/checkstyle/checkstyle.xml")
 }
 
 pmd {
     toolVersion = "7.26.0"
-    ruleSetFiles = files("tools/pmd/ruleset.xml")
+    ruleSetFiles = files("Tool Triggering (Synthetic Data)/pmd/ruleset.xml")
     ruleSets = emptyList()
 }
 
 spotbugs {
     toolVersion.set("4.10.3")
-    excludeFilter.set(file("tools/spotbugs/exclude.xml"))
+    excludeFilter.set(file("Tool Triggering (Synthetic Data)/spotbugs/exclude.xml"))
 }
