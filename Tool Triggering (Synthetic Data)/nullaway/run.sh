@@ -5,7 +5,7 @@
 #   runs as an Error Prone compiler plugin, not a standalone step
 #
 # It ships anyway, exiting 3, so the metrics that name it are visibly accounted for
-# rather than silently missing. See tools/nullaway/README.md.
+# rather than silently missing. See Tool Triggering (Synthetic Data)/nullaway/README.md.
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 exit 3
