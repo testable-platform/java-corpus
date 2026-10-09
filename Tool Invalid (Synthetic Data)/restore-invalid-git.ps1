@@ -33,7 +33,7 @@ if (-not (Test-Path $corpusDir)) {
     exit 1
 }
 
-$tools = @("diff-cover", "pydriller")
+$tools = @("diff-cover", "git-churn", "pydriller")
 $okCount = 0
 $failCount = 0
 
