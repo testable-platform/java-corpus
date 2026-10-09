@@ -38,18 +38,18 @@ test {
 
 checkstyle {
     toolVersion = '9.3'
-    configFile = file('tools/checkstyle/checkstyle.xml')
+    configFile = file('Tool Triggering (Synthetic Data)/checkstyle/checkstyle.xml')
 }
 
 pmd {
     toolVersion = '7.26.0'
-    ruleSetFiles = files('tools/pmd/ruleset.xml')
+    ruleSetFiles = files('Tool Triggering (Synthetic Data)/pmd/ruleset.xml')
     ruleSets = []
 }
 
 spotbugs {
     toolVersion = '4.8.6'
-    excludeFilter = file('tools/spotbugs/exclude.xml')
+    excludeFilter = file('Tool Triggering (Synthetic Data)/spotbugs/exclude.xml')
 }
 
 jar {
