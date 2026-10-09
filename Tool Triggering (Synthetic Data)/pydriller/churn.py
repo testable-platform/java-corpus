@@ -36,7 +36,7 @@ def collect(repo_path):
 
 def main():
     repo = sys.argv[1] if len(sys.argv) > 1 else "."
-    out_path = sys.argv[2] if len(sys.argv) > 2 else "tools/pydriller/out/churn.json"
+    out_path = sys.argv[2] if len(sys.argv) > 2 else "Tool Triggering (Synthetic Data)/pydriller/out/churn.json"
     stats = collect(repo)
     out = {k: {**v, "authors": sorted(v["authors"])} for k, v in stats.items()}
     with open(out_path, "w", encoding="utf-8") as fh:
