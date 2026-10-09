@@ -5,7 +5,7 @@ kind: standalone
 java_version: "10"
 host_jdk: "11"
 build_system: "Gradle / Kotlin DSL"
-command: ./tools/lizard/run.sh
+command: "./Tool Triggering (Synthetic Data)/lizard/run.sh"
 exit_codes:
   0: ran
   1: failed
