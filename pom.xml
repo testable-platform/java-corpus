@@ -11,8 +11,10 @@
   <name>Testable Java corpus JV-099</name>
 
   <properties>
-    <maven.compiler.source>25</maven.compiler.source>
-    <maven.compiler.target>25</maven.compiler.target>
+    <!-- release, not source/target: it pins the API surface to Java 25 as well as the
+         bytecode level, which is how this family is verified (javac with release 25). -->
+    <maven.compiler.release>25</maven.compiler.release>
+    <maven.compiler.testRelease>25</maven.compiler.testRelease>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -106,7 +108,7 @@
         <artifactId>maven-pmd-plugin</artifactId>
         <version>3.26.0</version>
         <configuration>
-          <rulesets><ruleset>${project.basedir}/tools/pmd/ruleset.xml</ruleset></rulesets>
+          <rulesets><ruleset>${project.basedir}/Tool Triggering (Synthetic Data)/pmd/ruleset.xml</ruleset></rulesets>
           <targetJdk>25</targetJdk>
         </configuration>
         <dependencies>
@@ -118,7 +120,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>3.6.0</version>
-        <configuration><configLocation>${project.basedir}/tools/checkstyle/checkstyle.xml</configLocation></configuration>
+        <configuration><configLocation>${project.basedir}/Tool Triggering (Synthetic Data)/checkstyle/checkstyle.xml</configLocation></configuration>
         <dependencies>
           <dependency><groupId>com.puppycrawl.tools</groupId><artifactId>checkstyle</artifactId><version>14.1.0</version></dependency>
         </dependencies>
@@ -128,7 +130,7 @@
         <artifactId>spotbugs-maven-plugin</artifactId>
         <version>4.8.6.6</version>
         <configuration>
-          <excludeFilterFile>${project.basedir}/tools/spotbugs/exclude.xml</excludeFilterFile>
+          <excludeFilterFile>${project.basedir}/Tool Triggering (Synthetic Data)/spotbugs/exclude.xml</excludeFilterFile>
           <plugins>
             <plugin><groupId>com.h3xstream.findsecbugs</groupId><artifactId>findsecbugs-plugin</artifactId><version>1.14.0</version></plugin>
           </plugins>
