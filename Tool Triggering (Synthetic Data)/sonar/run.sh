@@ -5,7 +5,7 @@
 #   needs a running SonarQube server; set SONAR_HOST_URL to enable
 #
 # It ships anyway, exiting 3, so the metrics that name it are visibly accounted for
-# rather than silently missing. See tools/sonar/README.md.
+# rather than silently missing. See Tool Triggering (Synthetic Data)/sonar/README.md.
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 command -v sonar-scanner >/dev/null 2>&1 || exit 4
