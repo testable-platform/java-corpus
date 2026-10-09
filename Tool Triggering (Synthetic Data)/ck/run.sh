@@ -5,7 +5,7 @@
 #   CK 0.7.0 bundles Eclipse JDT 3.26.0, which parses only up to Java 16 - it cannot read this branch's records or sealed types
 #
 # It ships anyway, exiting 3, so the metrics that name it are visibly accounted for
-# rather than silently missing. See tools/ck/README.md.
+# rather than silently missing. See Tool Triggering (Synthetic Data)/ck/README.md.
 set -u
 cd "$(dirname "$0")/../.." || exit 1
 command -v java >/dev/null 2>&1 || exit 4
