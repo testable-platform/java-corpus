@@ -5,7 +5,7 @@ kind: absent
 java_version: "17"
 host_jdk: "17"
 build_system: "Ant + Ivy"
-command: ./tools/custom-def-use/run.sh
+command: "./Tool Triggering (Synthetic Data)/custom-def-use/run.sh"
 exit_codes:
   0: ran
   1: failed
