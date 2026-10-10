@@ -193,3 +193,34 @@ exit-code contract: 0 ran, 1 failed, 3 skipped-cannot-run, 4 not-installed.
 
 Deliberately vulnerable versions, so the SCA metrics have known true positives. Do not
 upgrade them.
+
+<!-- tools-non-triggering -->
+## Tools non triggering (Synthetic Data)
+
+A fifth per-branch data folder, beside `Tool Clean (Synthetic Data)`,
+`Tool Invalid (Synthetic Data)`, `Tool Triggering (Synthetic Data)` and
+`Tool Triggering (Tool Github Test data)`.
+
+Clean makes each tool run and report nothing wrong. Invalid makes it run and
+report something. This folder holds data with nothing in it for any tool to
+catch -- and, where no program would reach the tool at all, nothing for it to
+start on. It is the negative control that tells *correctly detected nothing*
+apart from *the scan never ran*.
+
+`Tools non triggering (Synthetic Data)/` holds 20 tool-named folders, matching the names in Clean
+and Invalid so the data sets line up name-for-name:
+
+* **8 tools read source**, so they get a minimal program per boundary
+  family (java8 .. java25 (all 18)) -- one class or one function, no branching, no
+  duplication, no dependency, no dead export, no magic number.
+* **12 tools cannot be answered by a program** -- they read a lockfile,
+  a coverage report, compiled bytecode or the commit history -- so they carry
+  the subject matter as a plain record instead, with the reason stated in that
+  folder's own README.
+
+**No manifest, no lockfile, no tool configuration, no runner and no
+`trigger.yaml` anywhere in it**, so the folder adds no discovered project and
+no task to a run.
+
+See `Tools non triggering (Synthetic Data)/README.md` for the per-tool table, the mechanism each tool is
+inert by, and what was measured.
